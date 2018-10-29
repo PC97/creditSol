@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load permission_tags %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "css/base_styling.css" %}"/>
+    <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  </head>
+
+  <body>
+
+    <!-- NAVBAR HEADER-->
+  	<nav class="navbar navbar-dark">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{% url 'home' %}">Credit Solutions</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="nav navbar-nav navbar-right">
+            <a class="nav-item nav-link" href="{% url 'howitworks' %}">How It Works</a>
+            <a class="nav-item" id="line">|</a>
+            <a class="nav-item nav-link" href="{% url 'helpcenter' %}">Help Center</a>
+            <a class="nav-item" id="line">|</a>
+
+            {% if user.is_authenticated %}
+              {% if user|has_role:'customer' %}
+                <div class="nav-item dropdown">
+                  <a class="dropbtn">Wellcome {{user.first_name}}</a>
+                  <div class="dropdown-content" style="Right:0;>
+                    <a href="#"></a>
+                    <a href="{% url 'personal:profile_form' %}">Profile Form</a>
+                    <a href="{% url 'engine:e_score' %}">Credit Eligibility</a>
+                    <a href="#">Change Password</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                  </div>
+                </div>
+              {% elif user|has_role:'banker' %}
+                <div class="nav-item dropdown">
+                  <a class="dropbtn">{{user.first_name}}</a>
+                  <div class="dropdown-content" style="Right:0;>
+                    <a href="#"></a>
+                    <a href="#">Payments</a>
+                    <a href="{% url 'business:upload' %}">Upload CIR</a>
+                    <a href="#">Change Password</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                  </div>
+                </div>
+              {% endif %}
+            {% else %}
+              <div class="nav-item dropdown">
+                <a class="dropbtn">Log In</a>
+                <div class="dropdown-content" style="Right:0;>
+                  <a href="#"></a>
+                  <a href="{% url 'personal:login' %}">Personal</a>
+                  <a href="{% url 'business:login' %}">Business</a>
+                </div>
+              </div>
+              <a class="nav-item" id="line">|</a>
+
+              <div class="nav-item dropdown" >
+                <a class="dropbtn">Sign Up</a>
+                <div class="dropdown-content" style="right:0;>
+                  <a href="#"></a>
+                  <a href="{% url 'personal:signup' %}">Personal</a>
+                  <a href="{% url 'business:signup' %}">Business</a>
+                </div>
+              </div>
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+  	</nav>
+    <!-- NAVBAR HEADER ENDS -->
+
+
+        {% block body_block %}
+
+        {% endblock body_block%}
+
+
+
+    <!-- NAVBAR FOOTER-->
+    <div class="content">
+    </div>
+    <footer id="myFooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h5>Get started</h5>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'personal:signup' %}">Sign up</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>About us</h5>
+                    <ul>
+                        <li><a href="#">Company Information</a></li>
+                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>Support</h5>
+                    <ul>
+                        <li><a href="{% url 'helpcenter' %}">FAQ</a></li>
+                        <li><a href="{% url 'helpcenter' %}">Help desk</a></li>
+                        <li><a href="https://www.epicgames.com/fortnite/forums">Forums</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 info">
+                    <h5>Information</h5>
+                    <p> Everyone deserves to feel confident about their finances. Our job is to give you the tools, the education and the opportunities you need to make real, meaningful progress.Thinking about your finances can be frustrating, but we're working to make the process simpler and easier to understand for over 75 million Credit Karma members.</p>
+                </div>
+            </div>
+        </div>
+        <div class="second-bar">
+           <div class="container">
+                <h2 class="logo"><a href="{% url 'home' %}"> CREDIT SOLUTIONS </a></h2>
+                <div class="social-icons">
+                    <a href="https://twitter.com/" class="twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="https://facebook.com/" class="facebook"><i class="fa fa-facebook"></i></a>
+                    <a href="https://plus.google.com/" class="google"><i class="fa fa-google-plus"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- NAVBAR FOOTER ENDS -->
+
+  </body>
+</html>

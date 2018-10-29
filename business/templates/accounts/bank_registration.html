@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block body_block %}
+<style media="screen">
+  body{
+    background: #63738a;
+  }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+</style>
+
+<div class="login-form">
+  {% for message in messages %}
+
+               <div class="alert alert-success">
+                   <a class="close" href="{% url 'business:signup' %}" data-dismiss="alert">×</a>
+
+                   {{ message }}
+
+               </div>
+  {% endfor %}
+    <form enctype="multipart/form-data" method="POST">
+      {% csrf_token %}
+        <h2 class="text-center">Bank SignUp</h2>
+        <div class="form-group">
+          {{bank_form.first_name}}
+        </div>
+        <div class="form-group">
+          {{bank_form.username}}
+			   </div>
+        <div class="form-group">
+          {{bank_form.email}}
+        </div>
+        <div class="form-group">
+          {{bank_form.password1}}
+        </div>
+        <div class="form-group">
+          {{bank_form.password2}}
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">SignUp</button>
+        </div>
+        <h5 class="text-center">Already a member? <a href="{% url 'business:login' %}">Log In</a></h5>
+    </form>
+</div>
+{% endblock %}

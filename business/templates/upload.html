@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block body_block %}
+  <div class="container">
+    <div class="jumbotron jumbotron-fluid">
+      {% for message in messages %}
+
+                   <div class="alert alert-success">
+                       <a class="close" href="{% url 'personal:profile_form' %}" data-dismiss="alert">×</a>
+
+                       {{ message }}
+
+                   </div>
+      {% endfor %}
+      <form role="form" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="exampleFormControlFile1"><h1>Upload This Month's CIR</h1></label>
+          <p>(please upload the file in the format given in the attchment <a href="{% static 'sample.xlsx' %}">here</a>)</p>
+          {{form.cir}}
+        </div>
+        <button type="submit" class="btn btn-success">Upload</button>
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

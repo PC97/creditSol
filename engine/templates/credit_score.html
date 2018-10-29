@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load staticfiles %}
+  {% block body_block %}
+
+
+
+  <style>
+  body{
+  text-align: center;
+  }
+
+  #g1 {
+  width:400px; height:320px;
+  display: inline-block;
+  margin: 1em;
+  align-self: center;
+  }
+
+  p {
+  display: block;
+  width: 450px;
+  margin: 2em auto;
+  text-align: center;
+  }
+  </style>
+  <div class="container">
+    <div id="g1"></div>
+  </div>
+
+  <h1>Your Credit Score Came Out To be {{ score }}</h1>
+
+  <br><br>
+  <div class="container">
+
+
+    <img src="{% static 'images/score.png' %}" />
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+	<script src="js/main.js"></script>
+  <script src="{% static "JS/justgage.js" %}"></script>
+  <script src="{% static "JS/raphael-2.1.4.min.js" %}"></script>
+  <script>
+    var g1;
+    window.onload = function(){
+      var g1 = new JustGage({
+        id: "g1",
+        value: {{ score }},
+        min: 300,
+        max: 900,
+        title: "Credit Score",
+        label: "Score"
+      });
+    };
+  </script>
+  {% endblock body_block %}

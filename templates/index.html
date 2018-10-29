@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block body_block %}
+{% load staticfiles %}
+<div class="container">
+
+<div class="jumbotron">
+  <h1>Welcome to Credit Solutions!</h1>
+  <h2>Now you Can Check Your Credit Score</h2>
+</div>
+<img src="{% static 'images/home.png' %}" />
+
+</div>
+{% endblock %}

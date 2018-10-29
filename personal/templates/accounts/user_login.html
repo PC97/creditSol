@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block body_block %}
+<style media="screen">
+body{
+  background: #63738a;
+}
+</style>
+
+
+<div class="login-form">
+
+  {% for message in messages %}
+    <div class="alert alert-success">
+      <a class="close" href="{% url 'personal:login' %}" data-dismiss="alert">×</a>
+        {{ message }}
+    </div>
+  {% endfor %}
+  
+    <form action="{% url 'personal:login' %}" method="post">
+      {% csrf_token %}
+        <h2 class="text-center">Log in</h2>
+        <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Password" >
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        </div>
+        <h5 class="text-center">New to our site? <a href="{% url 'personal:signup' %}">SignUp</a></h5>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load staticfiles %}
+  {% block body_block %}
+  <style media="screen">
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+  </style>
+    <div class="container">
+      <h1>Edit Profile</h1>
+  	  <hr>
+      {% for message in messages %}
+
+                   <div class="alert alert-success">
+                       <a class="close" href="{% url 'personal:profile_form' %}" data-dismiss="alert">×</a>
+
+                       {{ message }}
+
+                   </div>
+      {% endfor %}
+
+      <h3>Personal info</h3>
+
+      <form class="form-horizontal" role="form" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">First name:</label>
+          <div class="col-lg-9">
+            {{ name_form.first_name }}
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Last name:</label>
+          <div class="col-lg-9">
+            {{ name_form.last_name }}
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Gender:</label>
+          <div class="col-lg-9">
+            <div class="ui-select">
+              {{ personal_form.gender }}
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Phone Number:</label>
+          <div class="col-lg-9">
+            <div class="input-group">
+              <div class="input-group-addon">+91</div>
+              {{ personal_form.phone }}
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Aadhaar number:</label>
+          <div class="col-lg-9">
+            {{ personal_form.aadhar_number }}
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Pan number:</label>
+          <div class="col-lg-9">
+            {{ personal_form.pan_number }}
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Address:</label>
+          <div class="col-lg-9">
+            {{ personal_form.address }}
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-md-2 control-label">Date of Birth:</label>
+          <div class="col-md-9">
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+              </div>
+              {{ personal_form.date_of_birth }}
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-md-2 control-label">Net monthly income:</label>
+          <div class="col-md-9">
+            <div class="input-group">
+              {{ personal_form.monthly_income }}
+              <div class="input-group-addon">₹</div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-md-2 control-label">Average savings:</label>
+          <div class="col-md-9">
+            <div class="input-group">
+              {{ personal_form.average_monthly_savings }}
+              <div class="input-group-addon">₹</div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label"></label>
+          <div class="col-lg-9">
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <div class="row">
+          <label class="col-lg-2 control-label"></label>
+            <div class="col-md-10">
+             <div class="col-xs-2">
+               <p class="text-center text-uppercase"><b><font size='4'>Bank Name</font></b></p>
+             </div>
+             <div class="col-xs-2">
+               <p class="text-center text-uppercase"><b><font size='4'>Amount</font></b></p>
+             </div>
+             <div class="col-xs-2">
+               <p class="text-center text-uppercase"><b><font size='4'>Tenure</font></b></p>
+             </div>
+             <div class="col-xs-2">
+               <p class="text-center text-uppercase"><b><font size='4'>Interest</font></b></p>
+             </div>
+             <div class="col-xs-2">
+               <p class="text-center text-uppercase"><b><font size='4'>Duration</font></b></p>
+             </div>
+             </div>
+          </div>
+        </div>
+
+
+        {% for form1 in current_formset.forms %}
+        {{ form1.id }}
+        <div class="form-group control-group add-more {{current_formset.prefix}}">
+          <div class="row">
+          <label class="col-lg-2 control-label">Current loan:</label>
+            <div class="col-md-10">
+             <div class="col-xs-2">
+               {{ form1.current_bank }}
+             </div>
+             <div class="col-xs-2">
+               <div class="input-group">
+                 {{ form1.current_amount }}
+                 <div class="input-group-addon">₹</div>
+               </div>
+             </div>
+             <div class="col-xs-2">
+               <div class="input-group">
+                 {{ form1.current_length }}
+                 <div class="input-group-addon">Months</div>
+               </div>
+             </div>
+             <div class="col-xs-2">
+               <div class="input-group">
+                 {{ form1.current_interest }}
+                 <div class="input-group-addon">%</div>
+               </div>
+             </div>
+             <div class="col-xs-2">
+               <div class="input-group">
+                 {{ form1.current_duration }}
+                 <div class="input-group-addon">Months</div>
+               </div>
+             </div>
+             <div class="col-xs">
+               <div class="input-group">
+                 {% if form1.instance.pk %}
+                    {{ form1.DELETE }}
+                 {% endif %}
+               </div>
+             </div>
+             <div class="col-xs">
+               <div class="input-group">
+                 {% if form1.instance.pk %}
+                    <p>(check to delete)</p>
+                 {% endif %}
+               </div>
+             </div>
+           </div>
+          </div>
+        </div>
+        {% endfor %}
+        {{ current_formset.management_form }}
+
+
+        {% for form2 in completed_formset.forms %}
+        {{ form2.id }}
+        <div class="form-group control-group add-more {{ completed_formset.prefix }}">
+          <div class="row">
+          <label class="col-lg-2 control-label">Completed loan:</label>
+            <div class="col-md-10">
+             <div class="col-xs-2">
+               {{ form2.comp_bank }}
+             </div>
+             <div class="col-xs-2">
+               <div class="input-group">
+                 {{ form2.comp_amount }}
+                 <div class="input-group-addon">₹</div>
+               </div>
+             </div>
+             <div class="col-xs-2">
+               <div class="input-group">
+                 {{ form2.comp_length }}
+                 <div class="input-group-addon">Months</div>
+               </div>
+             </div>
+             <div class="col-xs-2">
+               <div class="input-group">
+                 {{ form2.comp_interest }}
+                 <div class="input-group-addon">%</div>
+               </div>
+             </div>
+             <div class="col-xs">
+               <div class="input-group">
+                 {% if form2.instance.pk %}
+                    {{ form2.DELETE }}
+                 {% endif %}
+               </div>
+             </div>
+             <div class="col-xs">
+               <div class="input-group">
+                 {% if form2.instance.pk %}
+                    <p>(check to delete)</p>
+                 {% endif %}
+               </div>
+             </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        {{ completed_formset.management_form }}
+
+
+        <div class="form-group">
+          <div class="row">
+          <label class="col-lg-2 control-label"></label>
+             <div class="col-xs-10">
+               <button type="submit" class="btn btn-success">Save changes</button>
+               <a href="{% url 'engine:c_score' %}">Cancel</a>
+             </div>
+          </div>
+        </div>
+
+      </form>
+
+      <hr>
+
+      <script>
+  	     $(document).ready(function(){
+             var date_input=$('#date');
+  		       var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+  		       date_input.datepicker({
+  			        format: 'yyyy-mm-dd',
+  			        container: container,
+  			        todayHighlight: true,
+  			        autoclose: true,
+  		          })
+  	     })
+      </script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    </div>
+  {% endblock body_block %}
